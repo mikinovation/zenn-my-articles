@@ -1,0 +1,14 @@
+{
+  "name": "zenn-my-articles",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mikinovation/zenn-my-articles.git",
+  "author": "mikinovation <maneuver2472@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "preview": "zenn preview"
+  },
+  "devDependencies": {
+    "zenn-cli": "^0.1.89"
+  }
+}
