@@ -19,7 +19,7 @@ published: true
 
 https://www.prisma.io/docs/concepts/overview/why-prisma#tldr
 
-- リレーショナルデータをマッピングする代わりにオブジェクトで考える
+### リレーショナルデータをマッピングする代わりにオブジェクトで考える
 
 ```prisma
 model Post {
