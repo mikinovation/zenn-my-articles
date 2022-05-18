@@ -8,7 +8,7 @@ published: true
 
 :::message
 当記事ではPrismaの使い方については解説しておりません
-なぜPrismaの特徴となぜPrismaが生まれたのかという背景を雑にまとめています
+Prismaの特徴となぜPrismaが生まれたのかという背景を雑にまとめています
 :::
 
 # Prismaとは
