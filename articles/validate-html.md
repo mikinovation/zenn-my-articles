@@ -67,7 +67,9 @@ const state = reactive({
   html: '<p>hello</p><script>alert("Hello")</>script>'
 })
 
-const sanitizedHtml = computed(() => sanitizedHtml(state.html))
+const options = {}
+// 実際にはプロジェクトでoptionsをカスタマイズしてしますが、今回は省略します
+const sanitizedHtml = computed(() => sanitizedHtml(state.html, options))
 
 defineExpose({
   state,
