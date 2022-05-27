@@ -2,7 +2,7 @@
 title: "JavascriptでTinymceのようなリッチなエディターのセキュリティ対応"
 emoji: "😜"
 type: "tech"
-topics: ["Javascript", "regex", "sanitize-html"]
+topics: ["Javascript", "vue", "sanitize-html"]
 published: true
 ---
 
