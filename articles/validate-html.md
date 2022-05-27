@@ -108,6 +108,10 @@ export const validateHTML = (html: string) => {
 }
 ```
 
+:::message
+正規表現分からないのでもっと効率いい抽出方法あれば教えてください
+:::
+
 念のためテストもつけておく
 
 ```js
