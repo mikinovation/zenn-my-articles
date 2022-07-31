@@ -3,7 +3,7 @@ title: "ざっくりと理解するPrisma"
 emoji: "😜"
 type: "tech"
 topics: ["Prisma"]
-published: true
+published: false
 ---
 
 :::message
