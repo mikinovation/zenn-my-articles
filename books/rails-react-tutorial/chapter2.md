@@ -10,6 +10,7 @@ free: true
 - rails v7.0.3.1
 - mysql v8.0.30
 - nginx v1.23.1
+- react v18.2.0
 
 # プロジェクトのディレクトリを作成する
 
