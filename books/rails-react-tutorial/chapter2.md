@@ -1,5 +1,5 @@
 ---
-title: "RailsとMysqlの環境を構築する"
+title: "RailsとReactの環境を構築する"
 free: true
 ---
 
