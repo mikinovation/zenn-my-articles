@@ -294,8 +294,8 @@ rails css:install:sass
 以下のようにentrypoint.shを編集します
 
 ```diff sh:docker/entrypoint.sh
-+  bundle exec rails s -p 3000 -b '0.0.0.0'
 -  ./bin/dev
++  bundle exec rails s -p 3000 -b '0.0.0.0'
 ```
 
 先程esbuild関連のファイルをインストールして生成されたProcfile.devを以下のように更新します。こうすることでlocalhostからのアクセスできるようになりました
@@ -312,25 +312,22 @@ css: yarn build:css --watch
 rails g controller home index
 ```
 
-以下のようなコントローラーが生成されます
+コントローラーが作成されているのでtemplateに```main/index```をレンダリングするよう指定しましょう
+
+これ以降もReactのViewを表示するためのパスには指定する場合は```main/index```を指定するようにします
 
 ```rb:app/controllers/home_controller.rb
 class HomeController < ApplicationController
   def index
+    render template: 'main/index'
   end
 end
 ```
 
-続いてreactのビューをレンダリングするためのrootとなるdomを用意します。今回はsharedディレクトリにpartialとして追加しました。こうすることで各画面に``id="app"```の付いたdivタグを流用することができます
+続いてreactのビューをレンダリングするためのrootとなるdomを用意します。各画面に``id="app"```の付いたViewを使い回すことができるようになります
 
-sharedのviewファイルにはファイル名のprefixとして「_」が必要なためご注意ください
-
-```erb:app/views/shared/_react_app.html.erb
+```erb:app/views/main/index.html.erb
 <div id="app"></div>
-```
-
-```erb:app/views/home/index.html.erb
-<%= render "shared/react_app" %>
 ```
 
 それではreactをinstallしましょう
