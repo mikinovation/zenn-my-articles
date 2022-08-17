@@ -37,7 +37,8 @@ module.exports = {
   content: [
     './public/*.html',
     './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
+-   './app/javascript/**/*.js',
++   './app/javascript/**/*.{js,jsx,ts,tsx}',
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
