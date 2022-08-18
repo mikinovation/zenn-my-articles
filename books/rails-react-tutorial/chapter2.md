@@ -379,7 +379,3 @@ docker compose up
 ```
 
 ![Hello World](https://storage.googleapis.com/zenn-user-upload/0a39585db1ba-20220807.png)
-
-:::message
-現在続きを執筆中です
-:::
