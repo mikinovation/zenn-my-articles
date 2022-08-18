@@ -131,6 +131,13 @@ storybook-static
       - db
 ```
 
+```diff dev:Procfile.dev
+web: bundle exec rails s -p 3000 -b '0.0.0.0'
+js: yarn build --watch
+css: bin/rails tailwindcss:watch
++ storybook: yarn storybook
+```
+
 ```.env
 # storybook
 STORYBOOK_PORT=6006

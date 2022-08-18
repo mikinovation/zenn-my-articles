@@ -15,7 +15,7 @@ bundle add tailwindcss-rails
 rails tailwindcss:install
 ```
 
-```diff dev:Proc.dev
+```diff dev:Procfile.dev
 web: bundle exec rails s -p 3000 -b '0.0.0.0'
 js: yarn build --watch
 - css: yarn build:css --watch
