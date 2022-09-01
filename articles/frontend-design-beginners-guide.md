@@ -2,7 +2,7 @@
 title: "Webフロントエンド設計学入門"
 emoji: "📗"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["javascript", "vue", "react", "angular", "frontend]
+topics: ["javascript", "vue", "react", "angular", "frontend"]
 published: false
 ---
 
