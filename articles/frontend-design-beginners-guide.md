@@ -64,6 +64,10 @@ published: false
 
 # typescript
 
+## typescriptとは
+
+## typescriptのメリット
+
 # hooksの登場
 
 # コンポーネント設計
