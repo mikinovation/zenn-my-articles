@@ -94,11 +94,88 @@ Reactはあるイベントが「トリガー」となり、画面が「レンダ
 
 ## エフェクトの書き方
 
+それでは基本的なエフェクトの書き方について確認しておこう。
 
+### Step1: エフェクトを宣言する
 
-1. 副作用を宣言する
-2. 副作用の依存性を特定する
-3. 必要であればcleanupする
+コンポーネントでエフェクトを宣言するにはReactからuseEffectをimportする必要がある。
+
+```js
+import { useEffect } from 'react';
+```
+
+そしてコンポーネントのトップレベルでエフェクトを呼び出し、そのエフェクト内にコードを記述する
+
+```diff tsx
+function MyComponent() {
++  useEffect(() => {
++    // Code here will run after *every* render
++  });
+  return <div />;
+}
+```
+
+コンポーネントが更新されるたびに、Reactは画面を更新し、useEffect内のコールバックが走るようになる。つまりuseEffectは画面のレンダリングが反映されるまでコールバック処理を**遅延**させている
+
+それでは外部システムと同期するためにどのようにエフェクトを利用すればいいのか見ていこう。`VideoPlayer`というReactコンポーネントを考えてみてほしい。
+
+VideoPlayerコンポーネントは動画が再生されているかどうかのpropsを持っている
+
+```tsx
+<VideoPlayer isPlaying={isPlaying} />;
+```
+
+そして`VideoPlayer`コンポーネントはブラウザにビルトインで備わっているvideoタグを描画する
+
+```tsx
+function VideoPlayer({ src, isPlaying }) {
+  // TODO: do something with isPlaying
+  return <video src={src} />;
+}
+```
+
+しかしvideoタグは再生状態を管理する機能を持っていない。そのためこの機能を実現するためにはDOM要素から`play()`と`pause()`メソッドを呼び出さなければならない
+
+そのためには動画を再生しているかどうかを示すisPlayingのpropsの値と`play()`と`pause()`メソッドの命令的な呼び出しを同期させる必要がある
+
+そこでvideoタグのDOM nodeにrefを付与する必要がある
+
+```tsx
+import { useState, useRef, useEffect } from 'react';
+
+function VideoPlayer({ src, isPlaying }) {
+  const ref = useRef(null);
+
+  if (isPlaying) {
+    ref.current.play();  // Calling these while rendering isn't allowed.
+  } else {
+    ref.current.pause(); // Also, this crashes.
+  }
+
+  return <video ref={ref} src={src} loop playsInline />;
+}
+
+export default function App() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  return (
+    <>
+      <button onClick={() => setIsPlaying(!isPlaying)}>
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+      <VideoPlayer
+        isPlaying={isPlaying}
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+      />
+    </>
+  );
+}
+```
+
+上記のように書いてみたがこれは誤りである。Sxの純粋な計算でなければならない あー そうそう修正するような 
+
+### Step2: エフェクトの依存関係を指定する
+
+### Step3: 必要であればcleanupする
 
 ## 開発において２回発火する副作用をどう扱うか
 
