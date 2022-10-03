@@ -64,7 +64,7 @@ https://twitter.com/bohol_engineer/status/1576171624935526401
 
 ```vue:UserIcon.vue
 <template>
-  <img className="w-24 h-24" :src="props.src" />
+  <img class="w-24 h-24" :src="props.src" />
 </template>
 
 <script setup lang="ts">
