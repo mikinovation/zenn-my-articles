@@ -3,7 +3,7 @@ title: "全フロントエンドエンジニアに告ぐ。ブラウザコンソ
 emoji: "🌳"
 type: "tech"
 topics: ["frontend", "javascript", "log"]
-published: false
+published: true
 ---
 
 # はじめに
