@@ -282,8 +282,6 @@ export const fetcher = async <T>(
   return await $fetch<T>(path, {
     ...defaultOptions,
     ...fetchOptions,
-  }).catch((e) => {
-    throw e
   })
 }
 ```
@@ -298,8 +296,6 @@ export const fetcher = async <T>(
   return await $fetch<T>(path, {
     ...defaultOptions,
     ...fetchOptions,
-  }).catch((e) => {
-    throw e
   })
 }
 ```
