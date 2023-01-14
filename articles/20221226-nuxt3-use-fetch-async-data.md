@@ -29,7 +29,7 @@ Nuxt3は以前の2系にも増して更に強力な機能を公開しており�
 
 まずは簡単にuseFetchとuseAsyncDataとは何か説明する
 
-useFetchとuseAsyncDataとはNuxt3でAPIにリクエストを送り、リスポンスを受け取って返すというAPIだ。
+useFetchとuseAsyncDataとはAPIにリクエストを送り、レスポンスを受け取って返すためのAPIだ。
 
 他にもaxiosやReactであればuseSWRなどのライブラリも存在するが、Nuxt3ではuseFetchやuseAsyncDataというAPIが推奨されている
 
@@ -77,7 +77,7 @@ dataは第二引数で指定した非同期な処理から、その結果を取�
 
 この返り値を見ればわかるが、useAsyncDataとはHTTP Requestを送るためのAPIというよりは、非同期処理の状態を管理するためのAPIということができるだろう
 
-ちょっと話は逸れるが最近Reactに**use**というAPIが話題となった。ReactのuseとuseAsyncDataは一見似ているが役割が違う
+ちょっと話は逸れるが最近Reactで**use**というAPIが話題となった。ReactのuseとuseAsyncDataは一見似ているが役割が違う
 
 useAsyncDataはキャッシュ管理をした上で非同期で取得した値を取り出すが、useは単純に非同期処理から結果を取り出し、非同期コンポーネントとしてSuspenseを利用できるようにするAPIだ。Reactは今までuseQueryやuseSWRのライブラリを使わなければSuspenseを利用して非同期コンポーネントを作ることが難しかった
 
