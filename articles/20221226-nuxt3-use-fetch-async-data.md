@@ -211,6 +211,8 @@ const { data, pending, error, refresh } = await useAsyncData(
 
 例えば使い捨てのツールを作りたいときや短期で使うWebサイトにはわざわざuseAsyncDataを使う必要はないだろう。useFetchを使えばいい
 
+もしくはserverディレクトリにWeb APIの処理を書く場合はどうだろうか。この場合もuseFetchが活用できる。pathが型サポート受けられるというメリットがあるからだ。pathの型サポートに魅力を感じられるかどうかはプロジェクトによるかもしれない
+
 私自身の前提が入ってしまって恐縮ではあるが、**中長期的にメンテされることが見越されていたり、サービスをスケールさせていこうとしている場合にuseAsyncDataを推したい**というのが私の主張である
 
 # ofetchを活用する
@@ -344,6 +346,7 @@ const defaultOptions: FetchOptions = {
 - useFetchを使う場合
     - 短期間での開発や使い捨てツールのようなものを作る場合
     - Nuxtに依存、追従して問題ない場合
+    - serverディレクトリにバックエンドのAPIを定義し、pathの型ヒントを得たい場合
 - useAsyncData + $fetchを使う場合
     - 中長期での開発やサービスのスケールが見込まれる場合
     - Nuxtに依存せず、インフラ層をNuxtから切り離したい場合
