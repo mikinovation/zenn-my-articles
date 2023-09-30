@@ -8,9 +8,13 @@ published: true
 
 # 1. はじめに
 
+https://deno.com/
+
 DenoはNode.jsの作者であるRyan Dahl氏が開発した新しいJavaScript/TypeScriptのランタイムである
 
 今回はvimでのプラグイン管理にShougoさんの開発されているdein.vimの後継であるDpp.vimを導入するために必要であった
+
+https://github.com/Shougo/dpp.vim
 
 そこでUbuntu環境にDenoをインストールする方法を紹介する
 
