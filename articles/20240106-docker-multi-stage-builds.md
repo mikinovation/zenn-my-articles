@@ -31,7 +31,9 @@ Docker はアプリケーションとその依存関係をコンテナと呼ば�
 
 ## マルチステージビルドの概要
 
-マルチステージビルドは、単一の Dockerfile 内で複数のビルドステージを持つことができる Docker の機能です。そしてマルチステージビルドには以下 3 つの特徴があります
+マルチステージビルドは効率的かつセキュアなアプリケーションのデプロイにおいて不可欠です。
+
+マルチステージビルドは、単一の Dockerfile 内で複数のビルドステージを持つことができる Docker の機能になります。そしてマルチステージビルドには以下 3 つの特徴があります
 
 ### ビルドステージの分離
 
@@ -43,11 +45,101 @@ Docker はアプリケーションとその依存関係をコンテナと呼ば�
 
 ### セキュリティの向上
 
-最終イメージに不要なソフトウェアやファイルを含めないことで、攻撃可能なリソースを最小限に抑えることができます
-
-# マルチステージビルドの設定ステップ
+最終イメージに不要なライブラリやモジュールを排除することで、攻撃可能なリソースを最小限に抑えることができます
 
 # 実践例: 効率的なイメージ構築
+
+1. フロントエンドアプリの事前準備
+
+Nuxt3 のアプリを用意しました。
+いろいろと省略してはいますが、ディレクトリ構成は以下のような構成のアプリになっています
+
+```
+demo-app/
+├ docker/
+|   └── Dockerfile
+├ src/
+|   ├── assets/
+|   ├── entities/
+|   ├── features/
+|   ├── layouts/
+|   ├── middleware/
+|   ├── pages/
+|   ├── plugins/
+|   ├── store/
+|   ├── app.vue
+|   └── error.vue
+├ README.md
+├ docker-compose.yml
+├ nuxt.config.ts
+├ tsconfig.ts
+└ yarn.lock
+```
+
+`nuxt.config.ts`は以下のような内容になっています。こちらも公開できない内容が一部あるため省略しております
+
+ポイントは nitro の proxy 設定です。
+
+この環境変数と proxy の設定が正しくなされている必要があります。また、開発時は devProxy を使うことになるのですが、プロダクションモードは routeRules の方が適用されるので注意です
+
+```
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config'
+
+export default defineNuxtConfig({
+  rootDir: 'src',
+  nitro: {
+    routeRules: {
+      '/api/**': {
+        proxy: process.env.BASE_API_URL
+          ? `${process.env.BASE_API_URL}/**`
+          : 'http://localhost:8000/api/**'
+      },
+    },
+    devProxy: {
+      '/api': {
+        target: process.env.BASE_API_URL || 'http://localhost:8000/api',
+        changeOrigin: true,
+        prependPath: true
+      },
+    }
+  },
+  runtimeConfig: {
+    public: {
+      BASE_API_URL: process.env.BASE_API_URL || 'http://localhost:8000/api',
+    }
+  }
+})
+```
+
+2. マルチステージビルドの設定
+
+それでは本題に戻りましょう
+
+マルチステージビルドを実装するためには、Dockerfile の書き方を理解し、それを効果的に設定する必要があります。最初に今回書いた Dockerfile を例示します
+
+```Dockerfile
+# ビルドステージ
+FROM node:18.19.0-alpine3.18 as build-stage
+WORKDIR /app
+COPY . .
+RUN yarn install
+RUN yarn build
+
+# 実行ステージ
+FROM node:18.19.0-alpine3.18
+WORKDIR /app
+
+# ビルドステージから必要なファイルのみをコピー
+COPY --from=build-stage /app/src/.output ./src/.output
+COPY --from=build-stage /app/node_modules ./node_modules
+COPY --from=build-stage /app/package.json ./package.json
+
+EXPOSE 3000
+CMD ["node", "src/.output/server/index.mjs"]
+```
+
+今回は node のバージョン 18 系を採用しました。
 
 # デプロイ戦略: セキュリティとパフォーマンス
 
