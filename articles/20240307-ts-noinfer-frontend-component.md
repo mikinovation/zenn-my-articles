@@ -37,7 +37,7 @@ createStreetLight(["red", "yellow", "green"], "red");
 createStreetLight(["red", "yellow", "green"], "blue");
 ```
 
-配列の要素に含まれていない`blue`という要素を第二引数の`defaultColor`に使用しました。実はこれで typecheck を走らせても問題なく通ってしまいます。これは困りました。配列に存在しない値はあらかじめ第二引数に指定できないようにした方がより安全がバグの少ない、より型安全なコードを書けるはずです。
+配列の要素に含まれていない`blue`という要素を第二引数の`defaultColor`に使用しました。実はこれで typecheck を走らせても問題なく通ってしまいます。これは困りました。配列に存在しない値はあらかじめ第二引数に指定できないようにした方がより安全なコードを書けるはずです。
 
 それでは今まではどうしていたか。以下のように書くことで配列の要素に含まれている型のみを第二引数に指定できるようにしていました。
 
@@ -47,7 +47,7 @@ function createStreetLight<C extends string, D extends C>(colors: C[], defaultCo
 }
 ```
 
-少し複雑になりましたね。まあ読めないことはないですが、少しだけ型が複雑になったので可読性はどうしても落ちてしまいます。そこで今回登場した**NoInfer**を利用してみましょう
+少しコードが複雑になりましたね。まあ読めないことはないですが、少しだけ型が複雑になったので可読性はどうしても落ちてしまいます。D という新しい変数が登場するのはスマートな解決策とは言えません。そこで今回登場した**NoInfer**を利用してみましょう
 
 ```ts
 function createStreetLight<C extends string>(colors: C[], defaultColor?: NoInfer<C>) {
@@ -56,7 +56,7 @@ function createStreetLight<C extends string>(colors: C[], defaultColor?: NoInfer
 // Argument of type '"blue"' is not assignable to parameter of type '"red" | "yellow" | "green" | undefined'.
 ```
 
-先程の D という generics を新しく定義する方法に比べたらだいぶスッキリしました。NoInfer のお陰で**C が"blue"も含む可能性があるという型推論を防ぐ**ことができるようになす。これは嬉しいですね！
+先程の D を新しく定義する方法に比べたらだいぶスッキリしました。NoInfer のお陰で**C が"blue"も含む可能性があるという型推論を防ぐ**ことができるようになります。これは嬉しいですね！
 
 # フロントのコンポーネント設計に応用する
 
