@@ -1,10 +1,10 @@
 ---
 title: "【Typescript5.4】NoInferを活用して型安全なUIコンポーネントを設計する"
-emoji: "🧩"
+emoji: "🧐"
 type: "tech"
-topics: ["Typescript", "Vue"]
+topics: ["Typescript", "Vue", "React", "Frontend"]
 publication_name: gerunda
-published: false
+published: true
 ---
 
 # はじめに
@@ -61,6 +61,10 @@ function createStreetLight<C extends string>(colors: C[], defaultColor?: NoInfer
 # フロントのコンポーネント設計に応用する
 
 それでは NoInfer の旨味が分かったところで、これをどうフロントエンドコンポーネントの設計に活用するか考えてみましょう
+
+サンプルコードはこちらです
+
+https://github.com/mikinovation/sandbox/tree/main/vue/ts-no-infer
 
 今回は私が普段使用している Vue(Nuxt)を例にご紹介します。ただし、基本的には generics を使えるフレームワークであれば同じように NoInfer を扱えます。なので「自分は React ユーザーだよー」という方も参考にしてみてください
 
