@@ -91,7 +91,7 @@ const items = [
 </template>
 ```
 
-このサンプルの UI をアプリケーション上で使いやすいようにリファクタリングしてみましょう。props からは `items` とデフォルトのラベルを指定する`selected`を流し込めるようにします。コンポーネント名は`TheTabs.vue`にしておきます
+このサンプルの UI をアプリケーション上で使いやすいようにリファクタリングしてみましょう。props からは `items` とデフォルトのラベルを指定する`selected`を流し込めるようにします。コンポーネント名は`TheTabs.vue`とでもしておきましょう
 
 ```vue
 <script setup lang="ts" generic="T extends string">
@@ -112,14 +112,20 @@ const selected = computed(() =>
 
 できました。親コンポーネントから実際にコンポーネントを利用してみましょう。今回はテスト用です。なので
 
-- ラベルの型に含まれる要素をデフォルト値に指定した TheTabs
-- ラベルの型には含まれない要素をデフォルト値に指定した TheTabs
+- ラベルの型に含まれる要素(Tabs2)をデフォルト値に指定した TheTabs
+- ラベルの型には含まれない要素(Tabs4)をデフォルト値に指定した TheTabs
 
 の 2 つを用意することにしました
 
 https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/app.vue#L1-L38
 
-最終的な
+それでは typecheck を走らせてみましょう
+
+```bash
+npx nuxi typecheck
+```
+
+現時点では typecheck が問題なく通りました。なぜなら 2 つ目の TheTabs で Tab4 を指定することで Typescript は「T が Tab4 になる可能性もあるのだな」と推論してくれるからです。ただし今回のコンポーネントでその推論というのはありがた迷惑になってしまいます。先程と同じように NoInfer で推論を防いでみましょう
 
 https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/components/TheTabs.vue#L1-L14
 
