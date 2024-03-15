@@ -125,16 +125,20 @@ https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/app.vue#L1
 npx nuxi typecheck
 ```
 
-現時点では typecheck が問題なく通りました。なぜなら 2 つ目の TheTabs で Tab4 を指定することで Typescript は「T が Tab4 になる可能性もあるのだな」と推論してくれるからです。ただし今回のコンポーネントでその推論というのはありがた迷惑になってしまいます。先程と同じように NoInfer で推論を防いでみましょう
+現時点では typecheck が問題なく通りました。なぜなら 2 つ目の TheTabs で Tab4 を指定することで Typescript は「T が Tab4 になる可能性もあるのだな」と推論してくれるからです。ただし今回のコンポーネントでその推論というのはありがた迷惑になってしまいます。先程と同じように NoInfer で推論を防いでみましょう。最終的な完成形が以下になります
 
 https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/components/TheTabs.vue#L1-L14
+
+それではもう一度 typecheck を走らせてみましょう
 
 ```
 src/app.vue:26:29 - error TS2322: Type '"Tab4"' is not assignable to type '"Tab1" | "Tab2" | "Tab3"'.
 ```
 
+エラーが発生するようになりました。これでうっかり label の型に指定されていない値を指定しても CI 上で必ずミスに気づけるようになりました。これは型は仕様であり、テストであるということを体現した素晴らしいコードだと思います。ハッピーですね！
+
 # まとめ
 
-NoInfer で今までよりシンプルに型安全なコードを書けるようになりました
+NoInfer で意図的に型推論を防ぐことにより、よりシンプルに型安全なコードを書けるようになりました
 
-とても便利なのでどんどん活用していきましょう
+とても便利なのでぜひ活用してみてください
