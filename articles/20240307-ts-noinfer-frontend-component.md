@@ -33,7 +33,7 @@ createStreetLight(["red", "yellow", "green"], "red");
 
 それでは以下のようにするとどうでしょうか
 
-```
+```ts
 createStreetLight(["red", "yellow", "green"], "blue");
 ```
 
@@ -56,13 +56,76 @@ function createStreetLight<C extends string>(colors: C[], defaultColor?: NoInfer
 // Argument of type '"blue"' is not assignable to parameter of type '"red" | "yellow" | "green" | undefined'.
 ```
 
-先程の D という generics を新しく定義する方法に比べたらだいぶスッキリしました。NoInfer のお陰で**C が"blue"も含む可能性があるという型推論を防ぐ**ことができるようになりました。嬉しいですね！
+先程の D という generics を新しく定義する方法に比べたらだいぶスッキリしました。NoInfer のお陰で**C が"blue"も含む可能性があるという型推論を防ぐ**ことができるようになす。これは嬉しいですね！
 
 # フロントのコンポーネント設計に応用する
 
 それでは NoInfer の旨味が分かったところで、これをどうフロントエンドコンポーネントの設計に活用するか考えてみましょう
 
-今回は私が普段使用している Vue を例にご紹介します。ただし、基本的には generics を使えるフレームワークであれば同じように NoInfer を扱えます。なので「自分は React ユーザーだよー」という方も参考にしてください
+今回は私が普段使用している Vue(Nuxt)を例にご紹介します。ただし、基本的には generics を使えるフレームワークであれば同じように NoInfer を扱えます。なので「自分は React ユーザーだよー」という方も参考にしてみてください
+
+まずよくあるタブの UI を作成してみました。コードは[Nuxt UI](https://ui.nuxt.com/components/tabs)のサンプルをお借りします
+
+https://ui.nuxt.com/components/tabs
+
+```vue
+<script setup lang="ts">
+const items = [
+  {
+    label: "Tab1",
+    content: "This is the content shown for Tab1",
+  },
+  {
+    label: "Tab2",
+    content: "And, this is the content for Tab2",
+  },
+  {
+    label: "Tab3",
+    content: "Finally, this is the content for Tab3",
+  },
+];
+</script>
+
+<template>
+  <UTabs :items="items" />
+</template>
+```
+
+このサンプルの UI をアプリケーション上で使いやすいようにリファクタリングしてみましょう。props からは `items` とデフォルトのラベルを指定する`selected`を流し込めるようにします。コンポーネント名は`TheTabs.vue`にしておきます
+
+```vue
+<script setup lang="ts" generic="T extends string">
+const props = defineProps<{
+  items: { label: T; content: string }[];
+  selected: T;
+}>();
+
+const selected = computed(() =>
+  props.items.findIndex((item) => item.label === props.selected)
+);
+</script>
+
+<template>
+  <UTabs :items="items" :default-index="selected" />
+</template>
+```
+
+できました。親コンポーネントから実際にコンポーネントを利用してみましょう。今回はテスト用です。なので
+
+- ラベルの型に含まれる要素をデフォルト値に指定した TheTabs
+- ラベルの型には含まれない要素をデフォルト値に指定した TheTabs
+
+の 2 つを用意することにしました
+
+https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/app.vue#L1-L38
+
+最終的な
+
+https://github.com/mikinovation/sandbox/blob/main/vue/ts-no-infer/src/components/TheTabs.vue#L1-L14
+
+```
+src/app.vue:26:29 - error TS2322: Type '"Tab4"' is not assignable to type '"Tab1" | "Tab2" | "Tab3"'.
+```
 
 # まとめ
 
