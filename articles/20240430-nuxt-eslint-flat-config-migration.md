@@ -109,6 +109,20 @@ Replace `process.{{ suffix }}` with `import.meta.{{ suffix }}`.
 
 このメッセージの通り`process.env`というコードを書くと`import.meta.env`から呼び出しましょうというエラーが発生するようになります
 
+# 従来までの Nuxt と ES Lint
+
+念のため従来までの Nuxt と ESLint はどうだったかのお話もしたいと思います。以下は nuxtjs で使用されていた package です。つまり Nuxt2 の頃のモジュールですね。この Nuxt2 のモジュールが拡張されて Nuxt3 に対応するという形で運用されていました
+
+JS であれば[@nuxtjs/eslint-config](https://eslint.nuxt.com/legacy/eslint-config)、TS であれば[@nuxtjs/eslint-config-typescript](https://eslint.nuxt.com/legacy/eslint-config-ts)というモジュールを利用することで似たような機能が利用できました
+
+https://github.com/nuxt/eslint/blob/main/packages-legacy/nuxt2-eslint-config/index.js
+
+https://github.com/nuxt/eslint/blob/main/packages-legacy/nuxt2-eslint-config-typescript/index.js
+
+コードを読んでいただいても分かるように比較的シンプルな eslintrc だったことが分かります。しかし eslint の flat config に対応することでよりシンプルに拡張性の高い設定が書けるようになりました。
+
+また nuxt + eslint でググると nuxt の eslint module を利用せずに vue3 や typescript の eslint プラグインを個別にインポートして利用するという記事をよく見かけます。もちろん自分で一からカスタマイズしたいということであれば、その方法も問題ありません。しかし自分のようにプラグインの管理を Nuxt ESLint に丸投げして lint の管理コストは減らす方向で運用したいのであれば Nuxt ESLint を活用した方が良いのではないかと思っています。
+
 # Prettier から ESLint Stylistic に乗り換える
 
 ここまで eslint についてお話してきましたが、この記事のタイトルにもある通り Prettier と ESLint Stylistic にも触れます
@@ -117,7 +131,28 @@ Prettier といえば今最も人気のある Javascript のフォーマッタ�
 
 https://prettier.io/
 
-prettier に対して特に不満があったわけではないのですが、Stylistic へ移行する決め手としてはゼロコンフィグで設定できるところです。Nuxt ESLint で公式に採用されているためとても簡単に設定ができます
+しかし私はこの prettier から ESLint Stylistic に乗り換えることにしました
+
+https://eslint.style/
+
+ESLint Stylistic は`eslint`、`@typescript-eslint/eslint-plugin`、`eslint-plugin-react`からフォーマットに関するルールを分離したモジュールです
+
+その中にも Linter vs Formatter に関する意見が述べられています。簡単に要約すると以下のようなことが述べられています
+
+- Formatter は Linter から分離されるべきである
+- Prettier や dprint の"read-and-reprints"というアプローチはスタイルによる情報(意味のある改行等)を捨て去ってしまう
+  - 人間にとって読みやすいコードとは何かを考える必要がある
+  - 例として Prettier や dprint の printWidth のような強力な改行ルールが挙げられており、それは人間にとっての可読性を落とすことになる
+
+というような主張がなされています。先日話題になった以下の記事も記憶に新しいです
+
+https://zenn.dev/praha/articles/7ed629d0d9da53
+
+上記記事の主張としてもコードは機械的に幅を決めて改行するのではなく、意味で改行したいという考えが述べられていました。ただ私は prettier に対して特に不満があったわけではありませんし、Stylictic が完全に Prettier を代替できるものかというとそうではないと思っています
+
+Stylistic へ移行する決め手としては、やはりゼロコンフィグで、よりシンプルに設定できるところです。移行できた理由として、今私が受け持っているプロジェクトに関してもフロントに関しては私一人で保守・管理しており、技術選定もほぼ私が決定権を持てているということも大きな要因かと思っています
+
+Nuxt ESLint でも公式に採用されているためとても簡単に設定ができます
 
 ```ts:nuxt.config.ts
 export default defineNuxtConfig({
@@ -155,7 +190,7 @@ export default defineNuxtConfig({
 
 https://eslint.nuxt.com/packages/module#prettier
 
-私のようにフォーマットの形式自体にこだわりはないが、とりあえずフォーマットは統一しておきたいというだけであれば、Stylistic に任せるという選択肢はありかなと思っています
+私のようにフォーマットの形式自体にこだわりはないが、軽めにフォーマットは統一しておきたいというだけであれば、Stylistic に任せるという選択肢はありかなと思っています
 
 # Nuxt で eslintrc から flat config に移行してみる
 
