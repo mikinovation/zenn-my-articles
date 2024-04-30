@@ -250,15 +250,17 @@ export default withNuxt({
 
 ルールで`vue/multi-word-component-names`がオフにしています。理由としては現時点で pages ディレクトリにエラーが出てしまっていました(バグ？)。なので応急処置としていったん off にし、対応されたらルールを外そうと思っています
 
-また eslint や prettier で Nuxt ESLint の設定に含まれていないものを設定されている方は追加で設定しましょう。デフォルトで指定されている ignores は以下を参照してください
+また eslint や prettier で Nuxt ESLint の設定に含まれていないプラグインを設定されている方はそれぞれ追加で設定しましょう。
+
+eslint を無効化する ignores も設定しましょう。Nuxt ESLint にてデフォルトで指定されている ignores は以下を参照してください
 
 https://github.com/nuxt/eslint/blob/main/packages/eslint-config/src/flat/configs/ignores.ts
 
 ついでに global も設定しています。ECMAScript のバージョン等も指定があれば適宜設定してください
 
-7. フォーマットを掛け直して、エラーを修正したら移行完了
+7. 最後にフォーマットを掛け直して、エラーを修正したら移行完了
 
-これで移行作業は完了になります
+非常に簡単ですね。これで移行作業は完了になります
 
 # まとめ
 
