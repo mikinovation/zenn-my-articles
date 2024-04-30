@@ -21,7 +21,7 @@ https://eslint.org/blog/2023/10/flat-config-rollout-plans/#main
 
 そもそも eslint の目指す flat config とは何なのでしょうか。
 
-eslint 公式の![The goals of flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/#the-goals-of-flat-config)には以下のように書かれています
+eslint 公式の[The goals of flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/#the-goals-of-flat-config)には以下のように書かれています
 
 1. Logical defaults
 2. One way to define configs
@@ -78,20 +78,20 @@ Nuxt ESLint は以下の 3 つのパッケージから成り立っています
 @nuxt/eslint-config は Nuxt ESLint のルールを集約した package です。各 eslint のルールのカスタマイズとその提供をしています。具体的にどのような設定があるのか確認してみましょう
 
 - configs
-  - ![eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)
-  - ![@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parseri)
-  - ![@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin)
-  - ![@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)
-  - ![@nuxt/eslint-plugin](https://github.com/nuxt/eslint/tree/main/packages/eslint-plugin)
-  - ![@eslint/js](https://github.com/eslint/eslint/tree/main/packages/js)
-  - ![eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)
+  - [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)
+  - [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/parseri)
+  - [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin)
+  - [@stylistic/eslint-plugin](https://github.com/eslint-stylistic/eslint-stylistic)
+  - [@nuxt/eslint-plugin](https://github.com/nuxt/eslint/tree/main/packages/eslint-plugin)
+  - [@eslint/js](https://github.com/eslint/eslint/tree/main/packages/js)
+  - [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)
   - ignores
     - dist や node_modules 等の ignore
   - disables
     - vue/multi-word-component-names を一部無効化するための処理(pages や layouts は 1word のコンポーネントで問題ない)
 - configs-tooling
-  - ![eslint-plugin-jsdoc](https://www.npmjs.com/package/eslint-plugin-jsdoc)
-  - ![eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
+  - [eslint-plugin-jsdoc](https://www.npmjs.com/package/eslint-plugin-jsdoc)
+  - [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
 
 今回はカスタム内容まで確認しませんが、それぞれどのようにカスタマイズされているか気になる方は以下のリンクから確認できます。
 
