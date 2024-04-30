@@ -55,7 +55,7 @@ https://zenn.dev/babel/articles/eslint-flat-config-for-babel
 
 https://eslint.nuxt.com/
 
-正直これはかなりすごいです。個人的には lint の設定を可能な限りゼロコンフィグで使いたいと思っています。
+こちらは本当に素晴らしい Nuxt のモジュールです。個人的には lint の設定を可能な限りゼロコンフィグで使いたいと思っています。
 
 > All-in-one ESLint integration for Nuxt. It generates a project-aware ESLint flat config and provides the ability to optionally run ESLint check along side the dev server.
 
@@ -69,13 +69,13 @@ Nuxt ESLint は以下の 3 つのパッケージから成り立っています
 
 ## @nuxt/eslint
 
-@nuxt/eslint は Nuxt のモジュールとして利用することができます。Nuxt と eslint の flat config を統合する機能を提供しています
+@nuxt/eslint は Nuxt のモジュールとして利用することができます。Nuxt と eslint を統合する機能を担っています
 
-開発でのランタイムで eslint の分析を行うことができる checker という機能や dev-tools から lint ルールを確認するための@eslint/config-inspector を利用できるようにした package です
+開発時にはランタイムで eslint の分析を行うことができる checker という機能や dev-tools から lint ルールを確認するための@eslint/config-inspector を利用できるようにした package です
 
 ## @nuxt/eslint-config
 
-@nuxt/eslint-config は Nuxt ESLint のルールを集約した package です。各 eslint のルールのカスタマイズとその提供をしています。具体的にどのような設定があるのか確認してみましょう
+@nuxt/eslint-config は Nuxt ESLint のルールを集約した package です。各 eslint のルールのカスタマイズとそのルールを提供しています。具体的にどのような設定があるのか確認してみましょう
 
 - configs
   - [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)
@@ -107,7 +107,7 @@ https://github.com/nuxt/eslint/tree/main/packages/eslint-config/src/flat
 Replace `process.{{ suffix }}` with `import.meta.{{ suffix }}`.
 ```
 
-このメッセージの通り`process.env`というコードを書くと`import.meta.env`から呼び出しましょうというエラーが発生するようになります
+このメッセージの通り、例えば`process.env`というコードを書くと`import.meta.env`から呼び出しましょうというエラーが発生するようになります
 
 # 従来までの Nuxt と ES Lint
 
@@ -150,7 +150,7 @@ https://zenn.dev/praha/articles/7ed629d0d9da53
 
 上記記事の主張としてもコードは機械的に幅を決めて改行するのではなく、意味で改行したいという考えが述べられていました。ただ私は prettier に対して特に不満があったわけではありませんし、Stylictic が完全に Prettier を代替できるものかというとそうではないと思っています
 
-Stylistic へ移行する決め手としては、やはりゼロコンフィグで、よりシンプルに設定できるところです。移行できた理由として、今私が受け持っているプロジェクトに関してもフロントに関しては私一人で保守・管理しており、技術選定もほぼ私が決定権を持てているということも大きな要因かと思っています
+Stylistic へ移行する決め手としては、やはりゼロコンフィグで、よりシンプルに設定できるところです。移行できた理由として、今私が受け持っているプロジェクトに関してもフロントエンドは私一人で保守・管理しており、技術選定もほぼ私が決定権を持てていたということも大きな要因かと思っています
 
 Nuxt ESLint でも公式に採用されているためとても簡単に設定ができます
 
