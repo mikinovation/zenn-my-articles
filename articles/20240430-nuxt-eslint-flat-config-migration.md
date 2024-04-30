@@ -4,7 +4,7 @@ emoji: "📏"
 type: "tech"
 topics: ["Typescript", "Vue", "Nuxt", "Frontend"]
 publication_name: gerunda
-published: false
+published: true
 ---
 
 # はじめに
