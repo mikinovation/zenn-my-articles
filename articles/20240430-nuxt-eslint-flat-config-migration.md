@@ -111,13 +111,13 @@ Replace `process.{{ suffix }}` with `import.meta.{{ suffix }}`.
 
 # Prettier から ESLint Stylistic に乗り換える
 
-ここまで eslint についてお話してきましたが、この記事のタイトルにもある通り Prettier と EsLinti Stylistic にも触れます
+ここまで eslint についてお話してきましたが、この記事のタイトルにもある通り Prettier と ESLint Stylistic にも触れます
 
-まず Prettier といえば今最も人気のある Javascript のフォーマッターだと思っています
+Prettier といえば今最も人気のある Javascript のフォーマッターです
 
 https://prettier.io/
 
-prettier に対して特に不満があったわけではないのですが、やはり決め手としてはゼロコンフィグで設定できるところです。Nuxt ESLint でも採用されているため非常に簡単に設定ができます
+prettier に対して特に不満があったわけではないのですが、Stylistic へ移行する決め手としてはゼロコンフィグで設定できるところです。Nuxt ESLint で公式に採用されているためとても簡単に設定ができます
 
 ```ts:nuxt.config.ts
 export default defineNuxtConfig({
@@ -132,7 +132,7 @@ export default defineNuxtConfig({
 })
 ```
 
-設定はこれだけです。もし stylistic をカスタマイズしようと思ったら以下のように書くことができます
+設定はこれだけです。もし stylistic のルールを個別でカスタマイズしようと思ったら以下のように書くことができます
 
 ```ts:nuxt.config.ts
 export default defineNuxtConfig({
@@ -151,15 +151,15 @@ export default defineNuxtConfig({
 
 もし Prettier を入れようと思ったら、eslint-config-prettier のような干渉を調整するためのプラグインも管理する必要があります。それであればいっそ stylistic だけでも良さそうです
 
-もちろんチームで話しあったうえで prettier に必要なルールがほしいのであれば、prettier を採用するのは全く問題ありません。実際 Nuxt ESLint でも prettier が非推奨になっているわけではありません。ドキュメントにも「Prettier を入れたかったら入れてね」としか書いていないので、Prettier を採用しても全く問題ないかと思っています。
+もちろんチームで話しあったうえで prettier に必要なルールがほしいのであれば、prettier を採用するのは全く問題ありません。実際 Nuxt ESLint でも prettier が非推奨になっているわけではありません。ドキュメントにも「Prettier を入れたかったら設定してね」としか書いていないので、Prettier を採用しても全く問題ないということです。
 
 https://eslint.nuxt.com/packages/module#prettier
 
-何度も主張しますが、私のようにフォーマットの形式自体にこだわりはないが、とりあえずフォーマットは統一しておきたいというだけであれば、Stylistic に任せるという選択肢はありかなと思っています
+私のようにフォーマットの形式自体にこだわりはないが、とりあえずフォーマットは統一しておきたいというだけであれば、Stylistic に任せるという選択肢はありかなと思っています
 
 # Nuxt で eslintrc から flat config に移行してみる
 
-それでは実際に移行の手順をご紹介します。今回のケースは Nuxt が 1 プロジェクトもしくはモジュラーモノリスのケースになります
+それでは実際に移行の手順をご紹介します。今回のケースは Nuxt が 1 プロジェクトもしくはモジュラーモノリスのケースになります。手順自体はかなり簡単です
 
 1. `.eslintrc.js`、`.eslintignore`、`.prettierrc`、`.prettierignore`を削除する
 
@@ -227,9 +227,14 @@ export default defineNuxtConfig({
 
 ```js:eslint.config.mjs
 // @ts-check
+import globals from "globals"
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
 export default withNuxt({
+  globals: {
+    ...globals.browser,
+    ...globals.node
+  },
   rules: {
     // TODO: @nuxt/eslintがpageディレクトリに対するignoreを対応したら有効化する
     "vue/multi-word-component-names": "off",
@@ -243,14 +248,17 @@ export default withNuxt({
 });
 ```
 
-ルールで`vue/multi-word-component-names`がオフにしている。理由としては pages ディレクトリにエラーが出てしまっていた(バグ？)
-なので応急処置としていったん off にし、対応されたらルールを外そうと思っている。
+ルールで`vue/multi-word-component-names`がオフにしています。理由としては現時点で pages ディレクトリにエラーが出てしまっていました(バグ？)。なので応急処置としていったん off にし、対応されたらルールを外そうと思っています
 
-また eslint や prettier で Nuxt ESLint の設定に含まれていないものを追加。デフォルトで指定されている ignores は以下を参照
+また eslint や prettier で Nuxt ESLint の設定に含まれていないものを設定されている方は追加で設定しましょう。デフォルトで指定されている ignores は以下を参照してください
 
 https://github.com/nuxt/eslint/blob/main/packages/eslint-config/src/flat/configs/ignores.ts
 
+ついでに global も設定しています。ECMAScript のバージョン等も指定があれば適宜設定してください
+
 7. フォーマットを掛け直して、エラーを修正したら移行完了
+
+これで移行作業は完了になります
 
 # まとめ
 
