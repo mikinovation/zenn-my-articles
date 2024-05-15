@@ -270,9 +270,11 @@ import globals from "globals"
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
 export default withNuxt({
-  globals: {
-    ...globals.browser,
-    ...globals.node
+  languageOptions: {
+    globals: {
+      ...globals.browser,
+      ...globals.node
+    },
   },
   rules: {
     // TODO: @nuxt/eslintがpageディレクトリに対するignoreを対応したら有効化する
