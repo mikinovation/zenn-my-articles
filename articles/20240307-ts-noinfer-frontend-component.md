@@ -3,13 +3,12 @@ title: "【Typescript5.4】NoInferを活用して型安全なUIコンポーネ�
 emoji: "🧐"
 type: "tech"
 topics: ["Typescript", "Vue", "React", "Frontend"]
-publication_name: gerunda
 published: true
 ---
 
 # はじめに
 
-株式会社 Gerunda の齋藤です。最近 Typescript の 5.4 がリリースされました
+Webエンジニアをしております齋藤です。最近 Typescript の 5.4 がリリースされました
 
 https://devblogs.microsoft.com/typescript/announcing-typescript-5-4/
 
