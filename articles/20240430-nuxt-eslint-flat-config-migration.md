@@ -3,13 +3,12 @@ title: "Nuxt3で「eslintrcとprettier」から「flat configとeslint stylistic
 emoji: "📏"
 type: "tech"
 topics: ["Typescript", "Vue", "Nuxt", "Frontend"]
-publication_name: gerunda
 published: true
 ---
 
 # はじめに
 
-こんにちは、株式会社 Gerunda の齋藤です。
+こんにちは、Webエンジニアの齋藤です。
 
 昨年 2023 年の 10 月に Flat config への移行に関するロードマップの発表からしばらく経ちました。
 
