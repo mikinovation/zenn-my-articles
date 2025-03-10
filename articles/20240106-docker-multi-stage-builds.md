@@ -3,15 +3,14 @@ title: "Dockerのマルチステージビルドで効率化！スマートなコ
 emoji: "🐳"
 type: "tech"
 topics: ["Docker", "Security", "Node.js"]
-publication_name: gerunda
 published: true
 ---
 
 # はじめに: マルチステージビルドの重要性
 
-こんにちは、株式会社 Gerunda の齋藤です。
+こんにちは、Webエンジニアの齋藤です。
 
-私は普段フロントエンジニアとしてお仕事をしています。最近のフロントエンドの開発環境は非常に多様化しており、Vercel、Netlify、Cloudflare、AWS、GCP、Azure、さらにはオンプレミス環境といった様々なデプロイ先の選択肢があります。
+私は普段Webエンジニアとしてお仕事をしています。最近のフロントエンドの開発環境は非常に多様化しており、Vercel、Netlify、Cloudflare、AWS、GCP、Azure、さらにはオンプレミス環境といった様々なデプロイ先の選択肢があります。
 
 このような環境の中、特にクラウドサービスを利用した際に Docker を用いたデプロイが非常に重要になってきています。今回は、私が使用した Nuxt3 を用いたアプリケーションを例に、Docker のマルチステージビルドを活用したコンテナデプロイの手法を解説します。
 
