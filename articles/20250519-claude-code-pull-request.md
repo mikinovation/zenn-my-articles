@@ -1,9 +1,9 @@
 ---
-title: "Claude Codeを活用してNeovimでのGitワークフロー改善する"
+title: "Claude Codeを活用したNeovimでのGit運用フロー"
 emoji: "🤖"
 type: "tech"
 topics: ["vim", "ai", "claude", "git"]
-published: false
+published: true
 ---
 
 :::message
@@ -39,6 +39,7 @@ https://www.anthropic.com/pricing
   - 筆者はClaude Codeでの対話のメモリを頻繁にリセットするためIssueをストレージとして活用しています
 - コミットメッセージの自動作成とコミットの実行
 - プルリクの自動作成
+- 変更のプッシュとリベース・マージの自動化
 
 https://github.com/mikinovation/dotfiles/blob/9e093b2c5ab2a46e27c0c4c88f6e5a48abb650fb/config/nvim/plugins/claude-code.lua#L281-L289
 
@@ -173,6 +174,7 @@ Githubのプルリク作成ワークフローでは以下の手順でワーク�
   - Set PR status to open
   - Assign myself to the PR
   - Use 'main' as the base branch for the PR
+  - Before pushing, rebase from origin/main
   - With ticket reference: https://github.com/mikinovation/dotfiles/issues/174
   - Please follow the template format in .github/PULL_REQUEST_TEMPLATE.md
 ```
@@ -184,12 +186,46 @@ Githubのプルリク作成ワークフローでは以下の手順でワーク�
 - Assign myself to the PR
   - Github CLIで`--assignee @me`を指定して自身をアサインさせる
 - Use 'main' as the base branch for the PR
-  - ベースブランチをローカルブランチから選択させる
+  - ベースブランチをリモートブランチから選択する
+- Before pushing, rebase from origin/main
+  - プッシュ前にリベースを行うよう指示
 - With ticket reference: `https://github.com/mikinovation/dotfiles/issues/174`
   - Github IssueやNotion等のチケット紐づけリンクを入力させる
   - Notion等のチケットであればリンクをそのまま張ってくれるし、Github Issueであればテンプレートのフォーマットに応じて`resolve #{issue_number}`みたいな記載を臨機応変に対応してくれるので便利
 - Please follow the template format in .github/PULL_REQUEST_TEMPLATE.md
   - テンプレートを探して存在すれば、.github内のディレクトリを確認するようプロンプトを組み立てている
+
+ちなみにベースブランチを取得する際にはNeovim側で必ずgit fetchを実行するようにしています
+これに関して先日公開された、たけてぃさんの記事を参考にしました
+
+https://www.takeokunn.org/posts/fleeting/20250518144557-local_git_branch_operation/
+
+これで常にリモートブランチを参照したブランチの運用をすることができます。またリモートブランチとローカルブランチは別ものであるという意識が強くなりました
+
+`~/.config/git/config`を作成し、設定は以下になっています。この設定内容もdotfilesで管理するようにしました
+
+https://github.com/mikinovation/dotfiles/blob/fe37a210a5cb4c2a139c9d8988c40cb315971417/config/git/config#L1-L3
+
+## Git Pushのワークフロー
+
+このワークフローではベースブランチを選択するだけで、自動的に以下のようなプロンプトが生成されます
+
+```
+> I'm going to push changes. Please follow these instructions:
+  - First, check if a pull request already exists for the current branch with Github CLI
+  - If a PR exists, use git merge to update from origin/main before pushing
+  - If no PR exists, use git rebase from origin/main before pushing
+  - After the merge/rebase is successful, push the changes to origin
+```
+
+- First, check if a pull request already exists for the current branch with Github CLI
+  - ベースブランチと現在のブランチを元にプルリクが存在するかどうかをghで確認
+- If a PR exists, use git merge to update from origin/main before pushing
+  - プルリクが存在すれば、mergeしてからpush
+- If no PR exists, use git rebase from origin/main before pushing
+  - プルリクが存在しなければ、rebaseしてからpush
+- After the merge/rebase is successful, push the changes to origin
+  - mergeやrebaseが成功すれば、そのまま変更内容をpush
 
 # 実装詳細
 
@@ -197,7 +233,7 @@ Githubのプルリク作成ワークフローでは以下の手順でワーク�
 
 もしコードの改善点や追加機能で良き案があれば、どしどしコメント頂きたいです
 
-https://github.com/mikinovation/dotfiles/blob/9e093b2c5ab2a46e27c0c4c88f6e5a48abb650fb/config/nvim/plugins/claude-code.lua#L47-L290
+https://github.com/mikinovation/dotfiles/blob/59a57f95e6e87e3582e0665f6f7435e1c09a43cb/config/nvim/plugins/claude-code.lua#L293-L302
 
 # FAQ
 
