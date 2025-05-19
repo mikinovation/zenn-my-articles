@@ -233,7 +233,7 @@ https://github.com/mikinovation/dotfiles/blob/fe37a210a5cb4c2a139c9d8988c40cb315
 
 もしコードの改善点や追加機能で良き案があれば、どしどしコメント頂きたいです
 
-https://github.com/mikinovation/dotfiles/blob/59a57f95e6e87e3582e0665f6f7435e1c09a43cb/config/nvim/plugins/claude-code.lua#L293-L302
+https://github.com/mikinovation/dotfiles/blob/fe37a210a5cb4c2a139c9d8988c40cb315971417/config/nvim/plugins/claude-code.lua#L47-L260
 
 # FAQ
 
