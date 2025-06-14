@@ -32,7 +32,7 @@ https://www.anthropic.com/pricing
 
 # 実現したこと
 
-今回を利用して実現したことは主に3つです
+今回Claude Codeを利用して実現したことは主に3つです
 
 - Github Issuesの自動作成
   - 主にOSSでの課題をメモするのに使用
